@@ -1,0 +1,102 @@
+{% extends 'index.html' %}
+{% block auth %}
+
+<!-- Sign Up Form -->
+<div class="p-5"
+  style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);  background: #1A1A1D; border-radius: 10%; color: #66FCF1; border-width: 4px; border-color: #66FCF1;">
+  <form id='signUpForm'>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" name="user" class="form-control btn-outline" id="signUpUser" placeholder="Username"
+        style="background: center; border-color: #66FCF1; color: #66FCF1;">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" name="email" class="form-control" id="signUpEmail" placeholder="Email"
+        style="background: center; border-color: #66FCF1; color: #66FCF1;">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" name="password" class="form-control" id="signUpPassword" placeholder="Password"
+        style="background: center; border-color: #66FCF1; color: #66FCF1;">
+    </div>
+    <div>
+      <a href="#" class="card-link" id='useSignIn'>Have an account... Log In</a>
+      <button type="submit" id="signUpBtn" style="margin-left: 20px; margin-right: auto;" class="btn btn-primary">Sign
+        Up</button>
+    </div>
+  </form>
+</div>
+</div>
+
+<!-- Sign In Form -->
+<div class="p-5" id='signInForm'
+  style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);  background: #1A1A1D; border-radius: 10%; color: #66FCF1; border-width: 4px; border-color: #66FCF1;">
+  <form method="POST">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" name="username" class="form-control btn-outline" id="signInUsername" placeholder="Username"
+        style="background: center; border-color: #66FCF1; color: #66FCF1;">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" name="password" class="form-control" id="signInPassword" placeholder="Password"
+        style="background: center; border-color: #66FCF1; color: #66FCF1;">
+    </div>
+    <div>
+      <a href="#" class="card-link" id='useSignUp'>Don't have an account... Sign Up</a>
+      <button type="signup" id="signInBtn" style="margin-left: 20px; margin-right: auto;" class="btn btn-primary">Sign
+        In</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $("#useSignIn").click(() => {
+      var signUp = document.getElementById('signUpForm')
+      var signIn = document.getElementById('signInForm')
+      signUp.style.display = 'none'
+      signIn.style.display = 'block'
+    })
+    $("#useSignUp").click(() => {
+      var signUp = document.getElementById('signUpForm')
+      var signIn = document.getElementById('signInForm')
+      signUp.style.display = 'block'
+      signIn.style.display = 'none'
+    })
+  })
+
+  function formToJSON(formObj) {
+    var obj = {};
+    var elements = formObj.querySelectorAll("input, select, textarea");
+    for (var i = 0; i < elements.length; ++i) {
+      var element = elements[i];
+      var name = element.name;
+      var value = element.value;
+      obj[name] = value;
+    }
+
+    return JSON.stringify(obj);
+  }
+
+  function sign_up(e) {
+    e.preventDefault()
+    var body = formToJSON(this)
+    var config = {
+      headers: { 'Content-Type': 'application/json' },
+    };
+    axios.post('/signup', body, config)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (err) {
+        console.log(err);
+      })
+  }
+  var sign_up_form = document.getElementById('signUpForm')
+  sign_up_form.addEventListener('submit', sign_up, false)
+
+</script>
+
+{% endblock %}
