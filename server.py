@@ -53,27 +53,15 @@ types = [[
 ], ]
 
 
-# def isloggedin(sess):
-#     if sess:
-#         cur = mysql.connection.cursor()
-#         cur_count = cur.execute('SELECT user FROM users;')
-#         if cur_count > 0:
-#             usernames = cur.fetchall()
-#         if sess['user'] in usernames:
-#             return True
-#     else:
-#         return False
-
-
 @app.route('/')
 def home():
     return render_template('index.html', items=types)
 
 
-@app.route('/signup', methods=['GET'])
+@app.route('/signup', methods=['POST'])
 def signup():
     print('adfad')
-    if request.method == 'GET':
+    if request.method == 'POST':
       user = request.form['user']
       email = request.form['email']
       password = request.form['password']
@@ -82,54 +70,3 @@ def signup():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-# @app.route('/purchase')
-# def purchase():
-#     # print('session', session)
-#     if session:
-#         usernames.append([i['user'] for i in users])
-#         # print('usernames', usernames)
-#         if [session['user']] in usernames:
-#             # print([session['user']] in usernames)
-#             return render_template('modal.html', showModal=True)
-#     return redirect(url_for('signUpPage'))
-
-
-# @app.route('/signup')
-# def signUpPage():
-#     if session:
-#         usernames.append([i['user'] for i in users])
-#         if [session['user']] in usernames:
-#             return render_template('index.html', items=types, loggedIn=True)
-#     return render_template('auth.html', showAuth=False)
-
-
-# @app.route('/signup', methods=['POST'])
-# def signUp():
-#     if request.method == 'POST':
-#         print('user: ', request.json)
-#         user = request.json['user']
-#         email = request.json['email']
-#         password = request.json['password']
-#         session['user'] = user
-#         session['email'] = email
-#         session['password'] = sha256_crypt.hash(password)
-#         users.append({
-#             'user': user,
-#             'email': email,
-#             'password': password
-#         })
-#         print('Users: ', users)
-#     return redirect(url_for('purchase'))
-
-
-# @app.route('/log', methods=['POST'])
-# def log():
-#     if session:
-#         usernames.append([i['user'] for i in users])
-#         if [session['user']] in usernames:
-#             session.clear()
-#             return redirect(url_for(home))
-#     else:
-#         return redirect(url_for(purchase))
