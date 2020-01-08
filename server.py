@@ -18,34 +18,34 @@ mysql = MySQL(app)
 usernames = []
 types = [[
     {
-         'type': 'Cup Cake',
-         'img': '1.jpg',
-         'details': 'adfadfadfdafdfad'
+         'type': 'Cupcake',
+         'img': '1.jpeg',
+         'details': "Cup cakes free for Y'all"
          },
     {
         'type': 'Donut',
         'img': '2.jpg',
-        'details': 'lklkjakldsflkdfkladlk'
+        'details': 'Have you ever tried a sweet Methu Vadai?'
     },
     {
         'type': 'Cake Slices',
         'img': '3.jpg',
-        'details': 'adfadfadfdafdfad'
+        'details': "Order only if you can't eat one whole"
     },
     {
-        'type': 'Cup Cake',
-        'img': '1.jpg',
-        'details': 'adfadfadfdafdfad'
+        'type': 'Ice Cream Cake',
+        'img': '4.jpg',
+        'details': 'Eat it fast!!! Else you will li(c)ke them!!!'
     },
     {
-        'type': 'Donut',
-        'img': '2.jpg',
-        'details': 'lklkjakldsflkdfkladlk'
+        'type': 'Lemon Cake',
+        'img': '5.jpeg',
+        'details': "Try Sansa's favourite through her dark times"
     },
     {
-        'type': 'Cake Slices',
-        'img': '3.jpg',
-        'details': 'adfadfadfdafdfad'
+        'type': 'Pizza Cake',
+        'img': '6.jpg',
+        'details': 'You will never be able to forgive this!!!'
     }
 ]]
 
@@ -114,7 +114,7 @@ def signin():
             print('Verified')
             session['user'] = username
             print('Session Set')
-            return render_template('index.html', is_logged_in=True, items=types)
+            return redirect(url_for('home'))
     return render_template('index.html', log_in_error=True, items=types)
 
 
